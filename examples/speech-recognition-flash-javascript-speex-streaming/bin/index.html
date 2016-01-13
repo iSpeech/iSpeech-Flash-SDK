@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<title>SpeexSpeechRecognizer</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="language" content="en" />
+	<meta name="description" content="" />
+	<meta name="keywords" content="" />
+	
+	<script src="js/swfobject.js" type="text/javascript"></script>
+	<script type="text/javascript">
+	
+		if (location.protocol.substring(0,4) == "file")	
+			alert("You must host this file on a web server. (http://...)");
+
+		var flashvars = {
+		};
+		var params = {
+			menu: "false",
+			scale: "noScale",
+			allowFullscreen: "false",
+			allowScriptAccess: "always",
+			bgcolor: "#FFFFFF"
+		};
+		var attributes = {
+			id:"flashObject"
+		};
+		swfobject.embedSWF("SpeexSpeechRecognizer.swf", "altContent", "400", "300", "10.0.0", "expressInstall.swf", flashvars, params, attributes);
+		</script>
+		<script type="text/javascript">
+		var flash;
+		
+		function isReady(){
+			if(navigator.appName.indexOf("Microsoft") != -1) {
+		    	flash = window.flashObject;
+		  	}
+		  	else {
+		    	flash = window.document.flashObject;
+		  }
+		  if (flash != null){
+			log("flash", "loaded");
+			
+			flash.setApiKey("developerdemokeydeveloperdemokey");
+			flash.setLanguage('en-US');
+			
+			//Example 1:  Say anything
+			flash.setFreeformMode('3');
+			
+			//Example 2: A short list of commands, (must be yes, no, or null)
+			//flash.setFreeformMode("0"); //command list mode
+			//flash.addAlias("command1", ["yes", "no"]);
+			//flash.addCommand("%COMMAND1%");
+			
+			//Example 3:  Say something from a list, and we'll choose a list item
+			//flash.setFreeformMode('0'); //command list mode
+			//flash.addAlias("names", ["mary", "john", "paul"]);
+			//flash.addCommand("call %NAMES%");
+			
+			//Example 4: Change the command list
+			//flash.setFreeformMode('0'); //command list mode
+			//flash.addAlias("names", ["mary", "john", "paul"]);
+			//flash.addCommand("call %NAMES%");
+			//flash.clearAliasesAndCommands();
+			//flash.addAlias("names", ["joe", "bill", "greg"]);
+			//flash.addCommand("call %NAMES%");
+		  }
+		}
+		
+		function log(type, message){
+			
+		/* //Hide flash window once security is allowed and microphone is available
+			if (type=='security' && message=='allowed'){
+				flash.style.display = 'none';
+				log ("flash", "hidden");
+			}
+		*/
+			currentTime = new Date();
+			time = currentTime.getMonth()+1 + "/" + currentTime.getDate() + "/" + currentTime.getFullYear() + " " + currentTime.getHours() + ":" + currentTime.getMinutes() + ":" + currentTime.getSeconds();
+			outputMessages.innerHTML = time + "  - " + type + ": " + message + "<br/>"  + outputMessages.innerHTML;
+		}
+		
+	</script>
+	<style type="text/css">
+		html, body { height:100%; overflow:hidden; }
+		body { margin:0; }
+	</style>
+</head>
+<body>
+	<div id="altContent">
+		<h1>SpeexSpeechRecognizer</h1>
+		<p>Alternative content</p>
+		<p><a href="http://www.adobe.com/go/getflashplayer"><img 
+			src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif" 
+			alt="Get Adobe Flash player" /></a></p>
+	</div>
+	<p style="text-align: left;">Output Messages:</p>
+	<div id="outputMessages" style="border: solid 1px gray; width: 600px; height: 300px; overflow: scroll;">
+		
+	</div>
+	
+	<input type="button" name="record" value="Hold to Speak" onmousedown="flashObject.record();this.value='Recording'" onmouseup="flashObject.stopRecord(); this.value='Hold to Speak'" />
+</body>
+</html>
